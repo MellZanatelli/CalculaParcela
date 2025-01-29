@@ -12,15 +12,24 @@ class controllerCalculo extends Controller
     $valor = $request->input('valor');
     $taxa = $request->input('taxa') / 100;
     $qtd = $request->input('qtd');
-    $periodo = $request->input('periodo');
+
+    $valorAtualizado = $valor;
+    $valorTotal = 0.00;
 
     $dados = [];
     for ($i = 1; $i <= $qtd; $i++) {
-        $dados[$i]['mes'] = $i;
-        $dados[] = ['mes' => $i, 'valor' => number_format($capital, 2), 'juros' => number_format($juros, 2)];
+
+        $valorAtualizado = number_format($valorAtualizado * (1 + $taxa), 2, ',', '.');
+        $parcelaRestante = (($qtd - $i) +1);
+
+        $dados[$i]['parcela'] = $i;
+        $dados[$i]['valorPago'] = number_format(($valorAtualizado / $parcelaRestante), 2, ',', '.');
+
+        $valorTotal = number_format(($valorTotal + $dados[$i]['valorPago']), 2, ',', '.');
+
     }
 
-    return view('resposta', compact('dados'));
+    return view('resposta', compact('dados'), $nome, $valorTotal);
 }
 
 }

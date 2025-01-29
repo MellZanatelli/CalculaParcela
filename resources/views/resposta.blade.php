@@ -12,12 +12,11 @@
                     <table class="table table-striped">
                         <thead class="thead-dark">
                             <tr>
-                                Nome: {{ $dado['nome'] }}
+                                Nome: {{ $nome }}
                             </tr>
                             <tr>
-                                <th>Mês</th>
-                                <th>Valor Atualizado (R$)</th>
-                                <th>Juros do Mês (R$)</th>
+                                <th>Parcela</th>
+                                <th>Valor (R$)</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -28,7 +27,7 @@
                             </tr>
                             @endforeach
                             <tr>
-                                Valor total a ser pago: {{$valorTotal}}
+                                Valor total a ser pago: {{$valorTotal, 2, ',', '.'}}
                             </tr>
                         </tbody>
                     </table>
